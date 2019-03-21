@@ -3,6 +3,7 @@ package com.flt.leetcode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * @author fenglingtong
@@ -207,6 +208,52 @@ public class Solution {
 /*    public int uniqueMorseRepresentations(String[] words) {
 
     }*/
+
+    //20 有效的括号
+    public boolean isValid(String s){
+        if (s.length() == 0){
+            return true;
+        }
+        char[] chars = s.toCharArray();
+        String a = String.valueOf(chars[0]);
+        if (")".equals(a) || "]".equals(a) || "}".equals(a)){
+            return false;
+        }
+        Stack<String> objects = new Stack<>();
+        for (int i = 0; i < chars.length; i++){
+            String item = String.valueOf(chars[i]);
+            if (")".equals(item)){
+                if(objects.empty()){
+                    return false;
+                }
+                String pop = objects.pop();
+                if (!"(".equals(pop)){
+                    return false;
+                }
+            } else if ("}".equals(item)){
+                if(objects.empty()){
+                    return false;
+                }
+                String pop = objects.pop();
+                if (!"{".equals(pop)){
+                    return false;
+                }
+            } else if ("]".equals(item)){
+                if(objects.empty()){
+                    return false;
+                }
+                String pop = objects.pop();
+                if (!"[".equals(pop)){
+                    return false;
+                }
+            } else {
+                objects.push(item);
+            }
+
+        }
+        return objects.empty();
+    }
+
 
     public static void main(String[] args) {
         int i = 2;
